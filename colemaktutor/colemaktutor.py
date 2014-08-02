@@ -53,10 +53,15 @@ class KeyMapper:
         return key
 
 
-def header():
+def header(mapper=None):
     os.system('cls' if os.name == 'nt' else 'clear')
+    print(('=' * 80))
     div = lambda x: ((' ' * x) + '---' + (' ' * x))
     print(bold(versionStr) + div(14) + 'http://colemak-tutor.babab.nl')
+
+    if mapper:
+        print('\nkeyboard layout: in = {in_} / out = {out}'
+              .format(in_=mapper.layout_in, out=mapper.layout_out))
     print(('=' * 80) + '\n')
 
 
@@ -67,8 +72,9 @@ def main():
     tutor = CLITutor(mapper)
 
     if mapper.layout_out == 'colemak':
-        lessons = ColemakLessons(tutor, header_func=header)
-        header()
+        headerf = lambda: header(mapper)
+        lessons = ColemakLessons(tutor, header_func=headerf)
+        headerf()
         start_with_lesson = cli.selectLesson(lessons.titles)
         lessons.start(start_with_lesson)
     else:
