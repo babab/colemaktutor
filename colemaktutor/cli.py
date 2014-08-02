@@ -63,8 +63,7 @@ def layout():
     return ('qwerty', 'qwerty')
 
 
-def selectLesson(titles, header_func):
-    header_func()
+def selectLesson(titles):
     print('These are the available lessons for this layout\n')
     i = 0
     validChars = ''

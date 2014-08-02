@@ -68,7 +68,8 @@ def main():
 
     if mapper.layout_out == 'colemak':
         lessons = ColemakLessons(tutor, header_func=header)
-        start_with_lesson = cli.selectLesson(lessons.titles, header)
+        header()
+        start_with_lesson = cli.selectLesson(lessons.titles)
         lessons.start(start_with_lesson)
     else:
         print('That is not available yet, please select another option')
