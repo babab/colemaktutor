@@ -12,6 +12,11 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+try:
+    from colors import green, cyan, bold, underline
+except ImportError:
+    green = cyan = bold = underline = lambda x: x
+
 
 class ColemakLessons:
     titles = [
@@ -31,9 +36,15 @@ class ColemakLessons:
     def lesson1(self):
         self.header_func()
         print(self.titles[0] + '\n')
-        print('      --ST--NE---        --DF--JK---')
-        print('         *  *               *  *')
-        print('       (colemak)          (qwerty)\n')
+        # print('      --ST--NE---        --DF--JK---')
+        print(
+            '      '
+            '--' + green('S') + green('T', style='underline') + '-'
+            '-' + green('N', style='underline') + green('E') + '---'
+            '        '
+            '-SD' + underline('F') + '--' + underline('J') + 'KL--'
+        )
+        print('\n       (colemak)          (qwerty)\n')
         self.tutor.lines([
             'sets tens ten tnt sestet tenet seen nene testee tenets',
             'essen sent senses tenses teens stent sense tent nets',
@@ -46,9 +57,15 @@ class ColemakLessons:
     def lesson2(self):
         self.header_func()
         print(self.titles[1] + '\n')
-        print('      -RST--NEI--        -SDF--JKL--')
-        print('         *  *               *  *')
-        print('       (colemak)          (qwerty)\n')
+        # print('      -RST--NEI--        -SDF--JKL--')
+        print(
+            '      '
+            '-' + green('R') + cyan('S') + cyan('T', style='underline') + '-'
+            '-' + cyan('N', style='underline') + cyan('E') + green('I') + '--'
+            '        '
+            '-SD' + underline('F') + '--' + underline('J') + 'KL--'
+        )
+        print('\n       (colemak)          (qwerty)\n')
         self.tutor.lines([
             'trite stress sire it entire terse tit sir tire sinner retire',
             'rinse inn tree insist tier rite teeter resin stir siren enter',
