@@ -1,0 +1,2 @@
+ansicolors==1.0.2
+getch==1.0
