@@ -17,9 +17,9 @@ import textwrap
 from getch import getch
 
 try:
-    from colors import red, green
+    from colors import red, green, cyan, magenta
 except ImportError:
-    red = green = lambda x: x
+    red = green = cyan = magenta = lambda x: x
 
 import cli
 
@@ -40,6 +40,7 @@ class CLITutor:
         # randomize is True
         words = []
         for row in rows:
+            self.total += len(row)
             for i in row.split(' '):
                 words.append(i)
         random.shuffle(words)
@@ -54,7 +55,8 @@ class CLITutor:
         scoreNeg = 0
 
         print (row)
-        cli.write('--- Copy the line above ---')
+        instr = '--- Copy the line above ---'
+        self._scoreOutput(scorePos, scoreNeg, instr, '', row)
 
         for c in row:
             while True:
@@ -63,17 +65,20 @@ class CLITutor:
                 if (inp == c):
                     scorePos += 1
                     self._scoreOutput(scorePos, scoreNeg,
-                                      output + green(c), '_')
+                                      output + green(c), '_', row)
                     output += c
                     break
                 scoreNeg += 1
-                self._scoreOutput(scorePos, scoreNeg, output, red(inp))
+                self._scoreOutput(scorePos, scoreNeg, output, red(inp), row)
         cli.write()
         self._scoreUpdate(scorePos, scoreNeg)
 
-    def _scoreOutput(self, scorePos, scoreNeg, output, cursor):
-        score = '({pos}/{neg})'.format(pos=green(str(scorePos)),
-                                       neg=red(str(scoreNeg)))
+    def _scoreOutput(self, scorePos, scoreNeg, output, cursor, line):
+        perc = lambda neg, ln: str(((ln - neg) / ln) * 100)[:5] + '%'
+        score = '({pos} / {neg} / {lineperc})'.format(
+            pos=green(str(scorePos)), neg=red(str(scoreNeg)),
+            lineperc=cyan(perc(scoreNeg, len(line)))
+        )
         cli.write(output + cursor + ' ' + score)
 
     def _scoreUpdate(self, scorePos, scoreNeg):
