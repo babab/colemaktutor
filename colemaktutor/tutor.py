@@ -12,6 +12,8 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
+import random
+import textwrap
 from getch import getch
 
 try:
@@ -29,9 +31,21 @@ class CLITutor:
     def __init__(self, mapper):
         self.mapper = mapper
 
-    def lines(self, rows):
+    def lines(self, rows, randomize=False):
+        if not randomize:
+            for row in rows:
+                self.line(row)
+            return self
+
+        # randomize is True
+        words = []
         for row in rows:
-            self.line(row)
+            for i in row.split(' '):
+                words.append(i)
+        random.shuffle(words)
+
+        for line in textwrap.wrap(' '.join(words), 64):
+            self.line(line)
 
     def line(self, row):
         inp = ''
@@ -65,3 +79,19 @@ class CLITutor:
     def _scoreUpdate(self, scorePos, scoreNeg):
         self.scorePos = scorePos
         self.scoreNeg = scoreNeg
+
+if __name__ == '__main__':
+    class TestMapper:
+        def get(self, x):
+            return x
+
+    test_lines = [
+        'sets tens ten tnt sestet tenet seen nene testee tenets',
+        'essen sent senses tenses teens stent sense tent nets',
+        'tenseness net tense nests tennessee teen nest tents',
+        'net tens teen tenets senses nests nest nets tenet',
+        'sent sense tenses tennessee essen tnt tent teens',
+        'tense nene stent seen'
+    ]
+
+    CLITutor(TestMapper()).lines(test_lines, randomize=True)
