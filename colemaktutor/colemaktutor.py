@@ -24,14 +24,7 @@ versionStr = 'colemak-tutor ' + __version__
 import os
 
 try:
-    from colors import (
-        # red,
-        # green,
-        # magenta,
-        # cyan,
-        # underline,
-        bold,
-    )
+    from colors import bold
 except ImportError:
     bold = lambda x: x
 
@@ -74,7 +67,9 @@ def main():
     tutor = CLITutor(mapper)
 
     if mapper.layout_out == 'colemak':
-        ColemakLessons(tutor, header_func=header, start=1)
+        lessons = ColemakLessons(tutor, header_func=header)
+        start_with_lesson = cli.selectLesson(lessons.titles, header)
+        lessons.start(start_with_lesson)
     else:
         print('That is not available yet, please select another option')
         input('--- Press enter ---')

@@ -15,14 +15,7 @@
 from getch import getch
 
 try:
-    from colors import (
-        red,
-        green,
-        # magenta,
-        # cyan,
-        # underline,
-        # bold,
-    )
+    from colors import red, green
 except ImportError:
     red = green = lambda x: x
 

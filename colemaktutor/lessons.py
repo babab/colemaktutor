@@ -14,16 +14,23 @@
 
 
 class ColemakLessons:
-    def __init__(self, tutor, header_func, start=1):
+    titles = [
+        'Lesson 1 - letters STNE',
+        'Lesson 2 - letters RI',
+    ]
+
+    def __init__(self, tutor, header_func):
         self.tutor = tutor
         self.header_func = header_func
-        if start == 1:
+
+    def start(self, start=None):
+        if not start or start == 1:
             self.lesson1()
         self.lesson2()
 
     def lesson1(self):
         self.header_func()
-        print('Lesson 1 - letters STNE\n')
+        print(self.titles[0] + '\n')
         print('      --ST--NE---        --DF--JK---')
         print('         *  *               *  *')
         print('       (colemak)          (qwerty)\n')
@@ -38,7 +45,7 @@ class ColemakLessons:
 
     def lesson2(self):
         self.header_func()
-        print('Lesson 2 - letters RI\n')
+        print(self.titles[1] + '\n')
         print('      -RST--NEI--        -SDF--JKL--')
         print('         *  *               *  *')
         print('       (colemak)          (qwerty)\n')

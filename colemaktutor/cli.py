@@ -16,14 +16,7 @@ import sys
 from getch import getch
 
 try:
-    from colors import (
-        red,
-        # green,
-        # magenta,
-        # cyan,
-        # underline,
-        bold,
-    )
+    from colors import red, bold
 except ImportError:
     red = bold = lambda x: x
 
@@ -53,10 +46,12 @@ def layout():
     print('Colemak tutor allows you to emulate a layout so you can')
     print('learn and practice typing in colemak without installing')
     print('an implementation for your operating system\n')
-    print('1 - I want to practise colemak using a qwerty layout (emulated)')
-    print('2 - I want to practise colemak using a colemak layout')
-    print('3 - I want to practise qwerty using a colemak layout (emulated)')
-    print('4 - I want to practise qwerty using a qwerty layout\n')
+    print(bold('  1') +
+          ' - I want to practise colemak using a qwerty layout (emulated)')
+    print(bold('  2') + ' - I want to practise colemak using a colemak layout')
+    print(bold('  3') +
+          ' - I want to practise qwerty using a colemak layout (emulated)')
+    print(bold('  4') + ' - I want to practise qwerty using a qwerty layout\n')
 
     inp = inputChar(bold('Select an option:'), '1234')
     if inp == '1':
@@ -66,3 +61,17 @@ def layout():
     elif inp == '3':
         return ('colemak', 'qwerty')
     return ('qwerty', 'qwerty')
+
+
+def selectLesson(titles, header_func):
+    header_func()
+    print('These are the available lessons for this layout\n')
+    i = 0
+    validChars = ''
+    for title in titles:
+        i += 1
+        iStr = str(i)
+        validChars += iStr
+        print('  ' + bold(iStr) + ' - ' + title)
+    print()
+    return int(inputChar(bold('Select a lesson:'), validChars))
