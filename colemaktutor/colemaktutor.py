@@ -23,14 +23,17 @@ versionStr = 'colemak-tutor ' + __version__
 
 import os
 
-from colors import (
-    # red,
-    # green,
-    # magenta,
-    # cyan,
-    # underline,
-    bold,
-)
+try:
+    from colors import (
+        # red,
+        # green,
+        # magenta,
+        # cyan,
+        # underline,
+        bold,
+    )
+except ImportError:
+    bold = lambda x: x
 
 from lessons import ColemakLessons
 from tutor import CLITutor

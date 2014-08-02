@@ -15,14 +15,17 @@
 import sys
 from getch import getch
 
-from colors import (
-    red,
-    # green,
-    # magenta,
-    # cyan,
-    # underline,
-    bold,
-)
+try:
+    from colors import (
+        red,
+        # green,
+        # magenta,
+        # cyan,
+        # underline,
+        bold,
+    )
+except ImportError:
+    red = bold = lambda x: x
 
 
 def write(text='', end='\r'):
