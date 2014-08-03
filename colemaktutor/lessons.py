@@ -20,8 +20,8 @@ except ImportError:
 
 class ColemakLessons:
     titles = [
-        'Lesson 1 - letters STNE',
-        'Lesson 2 - letters RI',
+        'Lesson 1 - letters ' + green('STNE'),
+        'Lesson 2 - letters ' + green('RI'),
     ]
 
     def __init__(self, tutor, header_func):
@@ -33,9 +33,12 @@ class ColemakLessons:
             self.lesson1()
         self.lesson2()
 
-    def lesson1(self):
+    def printHeader(self, lessonNum):
         self.header_func()
-        print(self.titles[0] + '\n')
+        print(self.titles[lessonNum - 1] + '\n')
+
+    def lesson1(self):
+        self.printHeader(1)
         # print('      --ST--NE---        --DF--JK---')
         print(
             '      '
@@ -55,8 +58,7 @@ class ColemakLessons:
         ])
 
     def lesson2(self):
-        self.header_func()
-        print(self.titles[1] + '\n')
+        self.printHeader(2)
         # print('      -RST--NEI--        -SDF--JKL--')
         print(
             '      '
