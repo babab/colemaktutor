@@ -22,16 +22,19 @@ class ColemakLessons:
     titles = [
         'Lesson 1 - letters ' + green('STNE'),
         'Lesson 2 - letters ' + green('RI'),
+        'Lesson 3 - letters ' + green('AO'),
     ]
 
     def __init__(self, tutor, header_func):
         self.tutor = tutor
         self.header_func = header_func
 
-    def start(self, start=None):
-        if not start or start == 1:
-            self.lesson1()
-        self.lesson2()
+    def start(self, start=1):
+        n = 0
+        for i in self.titles:
+            n += 1
+            if start <= n:
+                getattr(self, 'lesson' + str(n))()
 
     def printHeader(self, lessonNum):
         self.header_func()
@@ -75,4 +78,26 @@ class ColemakLessons:
             'riser its resent sin rise rent rein iris stern in titter resist',
             'eerie inert street is renter sit nine risen sister serene',
             'stint err snit intent entree nit inter rest tennis re tint'
+        ])
+
+    def lesson3(self):
+        self.printHeader(3)
+        # print('      ARST--NEIO-        ASDF--JKL;-')
+        print(
+            '      '
+            + green('A') + cyan('RS') + cyan('T', style='underline') + '-'
+            '-' + cyan('N', style='underline') + cyan('EI') + green('O') + '-'
+            '        '
+            'ASD' + underline('F') + '--' + underline('J') + 'KL;-'
+        )
+        print('\n       (colemak)          (qwerty)\n')
+        self.tutor.lines([
+            'retain roe rant ratio toast sort stat tore earn noose',
+            'teat eater oat trio tear tone artist nor tattoo seat arise',
+            'noise start toss tenant oasis one aria no arson sonata ',
+            'soon rear to ass soot irate sane onset star root state',
+            'oar errant resort tartan sonnet notes eat rotten stain',
+            'ration arose reason noon sass retina iota torn stairs',
+            'iron estate toe are season not attire tenor innate',
+            'torso tease arisen note tar snort tarot',
         ])
