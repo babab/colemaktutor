@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+'''Main program module for all interfaces
+
+This is the main module but really does nothing more then definining
+meta information. Look at cli.CLI.main() for the main program, which is
+command line only at the moment.
+'''
+
 # Copyright (c) 2014 Benjamin Althues <benjamin@babab.nl>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -34,18 +41,28 @@ import cli
 
 
 class KeyMapper:
-    layout_in = 'qwerty'
-    layout_out = 'colemak'
+    '''Map keys between the Colemak and Qwerty layouts'''
 
-    Q = 'qwertyuiopasdfghjkl;zxcvbnm'  # QWERTY
-    C = 'qwfpgjluy;arstdhneiozxcvbkm'  # COLEMAK
+    layout_in = 'qwerty'
+    '''A string describing the input layout. Can be 'colemak' or 'qwerty' '''
+
+    layout_out = 'colemak'
+    '''A string describing the output layout. Can be 'colemak' or 'qwerty' '''
+
+    Q = 'qwertyuiopasdfghjkl;zxcvbnm'
+    '''Key sequence for the 'qwerty' layout'''
+
+    C = 'qwfpgjluy;arstdhneiozxcvbkm'
+    '''Key sequence for the 'colemak' layout'''
 
     def config(self, layout_tuple):
+        '''Setter method for the `layout_in` and `layout_out` properties'''
         self.layout_in = layout_tuple[0]
         self.layout_out = layout_tuple[1]
         return self
 
     def get(self, key):
+        '''Get a key depending on settings'''
         if self.layout_in == 'qwerty' and self.layout_out == 'colemak':
             return self.C[self.Q.find(key)] if key in self.Q else key
         elif self.layout_in == 'colemak' and self.layout_out == 'qwerty':
@@ -54,6 +71,7 @@ class KeyMapper:
 
 
 def header(mapper=None):
+    '''Clear the terminal screen and print the program header'''
     os.system('cls' if os.name == 'nt' else 'clear')
     print(('=' * 80))
     div = lambda x: ((' ' * x) + '---' + (' ' * x))
@@ -66,6 +84,7 @@ def header(mapper=None):
 
 
 def main():
+    '''Main function for running colemaktutor's interactive CLI'''
     header()
     mapper = KeyMapper()
     mapper.config(cli.layout())

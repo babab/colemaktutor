@@ -22,11 +22,22 @@ except ImportError:
 
 
 def write(text='', end='\r'):
+    '''Clear line and print a string, without line feed
+
+    Empty the contents of the current line in terminal (up to 80
+    characters). Then print `text` and the suffix `end` which is a
+    'carriage return' by default.
+    '''
     sys.stdout.write((' ' * 80) + '\r' + text + end)
     sys.stdout.flush()
 
 
 def inputChar(text='', valid_chars=''):
+    '''Get a (valid) character input from the user
+
+    If `valid_chars` contains one or more characters the user will be
+    forced to input one of those chars.
+    '''
     if text:
         write(text + '\r')
 
@@ -43,6 +54,7 @@ def inputChar(text='', valid_chars=''):
 
 
 def layout():
+    '''Ask the user to make a choice between layouts and return layout tuple'''
     print('Colemak tutor allows you to emulate a layout so you can')
     print('learn and practice typing in colemak without installing')
     print('an implementation for your operating system\n')
@@ -64,6 +76,7 @@ def layout():
 
 
 def selectLesson(titles):
+    '''Ask the user to make a choice between lessons available'''
     print('These are the available lessons for this layout\n')
     i = 0
     validChars = ''
