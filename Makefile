@@ -1,12 +1,3 @@
-#!/usr/bin/env python3
-
-'''Main program module for all interfaces
-
-This is the main module but really does nothing more then definining
-meta information. Look at cli.CLI.main() for the main program, which is
-command line only at the moment.
-'''
-
 # Copyright (c) 2014 Benjamin Althues <benjamin@babab.nl>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -21,13 +12,36 @@ command line only at the moment.
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-__docformat__ = 'restructuredtext'
-__author__ = "Benjamin Althues"
-__copyright__ = "Copyright (C) 2014  Benjamin Althues"
-__version_info__ = (0, 1, 0, 'alpha', 0)
-__version__ = '0.1.0'
-versionStr = 'colemaktutor ' + __version__
+PYTHON_EXEC		= python
+PIP_EXEC		= pip
 
-if __name__ == "__main__":
-    import cli
-    cli.CLI().run()
+sinclude config.mk
+
+VERSION		= 0.1.0
+
+make:
+	@echo "make install   Build and then install via pip and move manpage"
+	@echo "make uninstall Clean build files and uninstall via pip"
+	@echo
+	@echo "Developer commands"
+	@echo "make dist      Build python source archive file"
+	@echo "make clean     Clean program build files"
+
+rm_pyc:
+	find . -name "*.pyc" | xargs /bin/rm -f
+
+dist: rm_pyc
+	$(PYTHON_EXEC) setup.py sdist
+
+install: dist
+	$(PIP_EXEC) install --upgrade dist/colemaktutor-$(VERSION).tar.gz
+	make clean
+
+uninstall: clean
+	$(PIP_EXEC) uninstall colemaktutor
+
+clean:
+	rm -f MANIFEST
+	rm -rf dist
+
+# vim: set noet ts=8 sw=8 sts=8:
