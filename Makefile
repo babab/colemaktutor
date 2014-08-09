@@ -24,6 +24,7 @@ make:
 	@echo "make uninstall Clean build files and uninstall via pip"
 	@echo
 	@echo "Developer commands"
+	@echo "make doc       Build html documentation"
 	@echo "make dist      Build python source archive file"
 	@echo "make clean     Clean program build files"
 
@@ -43,5 +44,8 @@ uninstall: clean
 clean:
 	rm -f MANIFEST
 	rm -rf dist
+
+docs: install
+	(cd doc && make html)
 
 # vim: set noet ts=8 sw=8 sts=8:
