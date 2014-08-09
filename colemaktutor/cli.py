@@ -29,13 +29,25 @@ import colemaktutor.lessons
 
 
 class Tutor:
+    '''Tutor for the CLI
+
+    The tutor translates lines of text in a lesson into the appropiate
+    actions needed for interacting with the user. It also keeps score of
+    right/wrong keystrokes.
+    '''
+
     scorePos = 0
+    '''The number of right keystrokes'''
+
     scoreNeg = 0
+    '''The number of wrong keystrokes'''
 
     def __init__(self, mapper):
+        '''Load `mapper` and instantiate `Tutor`'''
         self.mapper = mapper
 
     def lines(self, rows, randomize=False):
+        '''Execute `line` for each row, optionally after randomizing words '''
         if not randomize:
             for row in rows:
                 self.line(row)
@@ -53,6 +65,14 @@ class Tutor:
             self.line(line)
 
     def line(self, row):
+        '''For a single line, keep score and interact with the user
+
+        Print the `row` of chars and start a loop where the user tries
+        to copy the same chars in sequence, keeping count of the number
+        of positive and negative keystrokes. Show the current score in
+        numbers and a calculated percentage. Wait for new input until
+        all characters in `row` are copied.
+        '''
         inp = ''
         output = ''
         scorePos = 0
@@ -91,6 +111,8 @@ class Tutor:
 
 
 class CLI:
+    '''(Interactive) Command Line Interface session'''
+
     @staticmethod
     def write(text='', end='\r'):
         '''Clear line and print a string, without line feed
@@ -174,7 +196,7 @@ class CLI:
         return ('qwerty', 'qwerty')
 
     def selectLesson(self, titles):
-        '''Ask the user to make a choice between lessons available'''
+        '''Let the user choose between available lessons and return lesson #'''
         print('These are the available lessons for this layout\n')
         i = 0
         validChars = ''

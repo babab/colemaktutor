@@ -19,6 +19,8 @@ except ImportError:
 
 
 class ColemakLessons:
+    '''Lessons optimzed for learning the Colemak layout'''
+
     titles = [
         'Lesson 1 - letters ' + green('STNE'),
         'Lesson 2 - letters ' + green('RI'),
@@ -26,10 +28,12 @@ class ColemakLessons:
     ]
 
     def __init__(self, tutor, header_func):
+        '''Load tutor and header_function and instantiate an object'''
         self.tutor = tutor
         self.header_func = header_func
 
     def start(self, start=1):
+        '''Run all lessons in sequence starting from `start`'''
         n = 0
         for i in self.titles:
             n += 1
@@ -37,10 +41,12 @@ class ColemakLessons:
                 getattr(self, 'lesson' + str(n))()
 
     def printHeader(self, lessonNum):
+        '''Header that should appear in all lessons'''
         self.header_func()
         print(self.titles[lessonNum - 1] + '\n')
 
     def lesson1(self):
+        '''Colemak lesson 1 - Letters STNE'''
         self.printHeader(1)
         # print('      --ST--NE---        --DF--JK---')
         print(
@@ -61,6 +67,7 @@ class ColemakLessons:
         ])
 
     def lesson2(self):
+        '''Colemak lesson 2 - Letters RI'''
         self.printHeader(2)
         # print('      -RST--NEI--        -SDF--JKL--')
         print(
@@ -81,6 +88,7 @@ class ColemakLessons:
         ])
 
     def lesson3(self):
+        '''Colemak lesson 3 - Letters AO'''
         self.printHeader(3)
         # print('      ARST--NEIO-        ASDF--JKL;-')
         print(
