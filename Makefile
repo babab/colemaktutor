@@ -35,6 +35,7 @@ dist: rm_pyc
 	$(PYTHON_EXEC) setup.py sdist
 
 install: dist
+	$(PIP_EXEC) install -r requirements.txt
 	$(PIP_EXEC) install --upgrade dist/colemaktutor-$(VERSION).tar.gz
 	make clean
 
